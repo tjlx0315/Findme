@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南湾一中官方网站</title>
+    <style>
+        /* --- 全局样式 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* --- 1. 顶部条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 2. 头部 (Logo + 校名) --- */
+        .header {
+            background-color: #26376a;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header img {
+            height: 70px;
+            width: auto;
+        }
+
+        .header-text h1 {
+            font-family: "SimSun", serif;
+            font-size: 28px;
+            margin: 0;
+            color: white;
+        }
+
+        .header-text p {
+            margin: 0;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-family: "SimSun", serif;
+            font-weight: normal;
+        }
+
+        /* --- 3. 导航栏 --- */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 40px;
+        }
+
+        .navbar li a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .navbar li a:hover {
+            color: #26376a;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-search input {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 180px;
+            outline: none;
+        }
+
+        .nav-search input:focus {
+            border-color: #26376a;
+        }
+
+        /* --- 4. 主要内容区 --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-image-placeholder {
+            flex: 3;
+            background-color: #e9e9e9;
+            border: 2px dashed #ccc;
+            aspect-ratio: 1 / 1;
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+            flex-direction: column;
+            padding: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            border-left: 4px solid #26376a;
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+
+        .notice-list li a {
+            text-decoration: underline;
+        }
+
+        .notice-list li a:hover {
+            color: #26376a;
+        }
+
+        .school-summary {
+            margin: 8px 0 15px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .forgot-link {
+            color: #1e6fb3;
+            font-size: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-note {
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 8px;
+            min-height: 16px;
+        }
+
+        /* --- 5. 登录模块 --- */
+        .login-box {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .login-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            background: #f9f9f9;
+            border: none;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-top: 2px solid #26376a;
+            color: #26376a;
+        }
+
+        .login-form {
+            display: none;
+        }
+
+        .login-form.active {
+            display: block;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 8px;
+            background-color: #26376a;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* --- 6. 浮动页码框 --- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        /* --- 7. 底部 --- */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            margin-top: 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer strong {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 顶部条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 2. 头部 -->
+    <div class="header">
+        <img src="/Users/jiajia/Downloads/nanwan/nanwanlogo.png" alt="南湾一中 Logo">
+        <div class="header-text">
+            <h1>南湾一中</h1>
+            <p>育人&nbsp;&nbsp;育才&nbsp;&nbsp;育德&nbsp;&nbsp;育美</p>
+        </div>
+    </div>
+
+    <!-- 3. 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="#">学校概况</a></li>
+            <li><a href="5Notice.html">通知公告</a></li>
+            <li><a href="8Teacher.html">教工动态</a></li>
+            <li><a href="9Note.html">学生天地</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <div class="nav-search">
+            <input type="search" id="search-input" placeholder="搜索...">
+        </div>
+    </nav>
+
+    <!-- 4. 主要内容区 -->
+    <div class="container">
+        <div class="main-image-placeholder">
+            <img src="school.jpg" alt="学校大图" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+
+        <div class="sidebar">
+            <h3 class="sidebar-title">校园公告</h3>
+            <ul class="notice-list">
+                <li><a href="2QiMingXing.html">第五届“启明星”选拔大赛正式开启</a></li>
+                <li><a href="3WeiShuTong.html">蔚海警局局长魏舒桐成为我校法治校长</a></li>
+                <li><a href="4Visit.html">我校与润泽集团签约第五年合作</a></li>
+            </ul>
+
+            <!-- 登录模块 -->
+            <div class="login-box">
+                <div class="login-tabs">
+                    <button class="tab-btn active" onclick="switchTab('student')">学生登录</button>
+                    <button class="tab-btn" onclick="switchTab('teacher')">教师登录</button>
+                </div>
+
+                <div id="student-login" class="login-form active">
+                    <input type="text" id="student-user" placeholder="学号">
+                    <input type="password" id="student-pass" placeholder="密码">
+                    <div style="text-align:right; margin-bottom:8px;">
+                        <a href="#" class="forgot-link" onclick="forgotPassword('student');return false;">忘记密码</a>
+                    </div>
+                    <div id="student-forgot-note" class="forgot-note"></div>
+                    <button onclick="studentLogin()">登录</button>
+                </div>
+
+                <div id="teacher-login" class="login-form">
+                    <input type="email" id="teacher-user" placeholder="邮箱">
+                    <input type="password" id="teacher-pass" placeholder="密码">
+                    <div style="text-align:right; margin-bottom:8px;">
+                        <a href="#" class="forgot-link" onclick="forgotPassword('teacher');return false;">忘记密码</a>
+                    </div>
+                    <div id="teacher-forgot-note" class="forgot-note"></div>
+                    <button onclick="teacherLogin()">登录</button>
+                </div>
+            </div>
+
+            <!-- 联系我们 -->
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                <h3 class="sidebar-title">联系我们</h3>
+                <p class="school-summary">
+                    副校长：刘晓葭 &nbsp; Liuxiaojia@nwyz.edu.com
+                </p>
+                <p class="school-summary">
+                    后勤处主管：陈薇 &nbsp; Chenwei@nwyz.edu.com
+                </p>
+                <p class="school-summary">
+                    润泽集团技术部员工：辛沐 &nbsp; 674293727@rzgroup.com
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <!-- 页码 -->
+    <div class="page-indicator">1 / 31</div>
+
+    <script>
+        // ✅ 实时时间（已修复：立即执行 + 两位数）
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+
+        updateTime();           // ✅ 立即执行一次
+        setInterval(updateTime, 1000);
+
+        // 搜索框逻辑
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const keyword = this.value.trim();
+                let targetPage = '2ex.html';
+
+                if (keyword === '南湾心理') {
+                    targetPage = '13Psychology.html';
+                } else if (keyword === '思源工程') {
+                    targetPage = '15Cooperation.html';
+                } else if (keyword === '云江计划') {
+                    targetPage = '16SouSuo.html';
+                } else if (keyword === '沈伏' || keyword === '润泽惠生工程' || keyword === '润泽惠生') {
+                    targetPage = '1ex.html';
+                } else if (keyword === '陈薇') {
+                    targetPage = '3ex.html';
+                } else if (keyword === '郑水华') {
+                    targetPage = '10GongZiDan.html';    
+                } else if (keyword === '辛沐') {
+                    targetPage = '28XinMu.html';    
+                }
+
+                window.location.href = targetPage;
+            }
+        });
+
+        // 切换登录 tab
+        function switchTab(type) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
+
+            if (type === 'student') {
+                document.querySelector('.tab-btn').classList.add('active');
+                document.getElementById('student-login').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('teacher-login').classList.add('active');
+            }
+        }
+
+        // 学生登录
+        function studentLogin() {
+            const user = document.getElementById('student-user').value;
+            const pass = document.getElementById('student-pass').value;
+
+            if (user === '20123748' && pass === '20050415') {
+                window.location.href = '12ShenFu.html';
+            } else if (user === '20123462' && pass === '20200902') {
+                window.location.href = '4ex.html';
+            } else {
+                alert('用户名或密码错误');
+            }
+        }
+
+        // 教师登录
+        function teacherLogin() {
+            const user = document.getElementById('teacher-user').value;
+            const pass = document.getElementById('teacher-pass').value;
+
+            if (user === 'Zhengshuihua@nwyz.edu.com' && pass === '463137498') {
+                window.location.href = '11ZhengShuiHua.html';
+            } else if (user === 'Chenmiao@nwyz.edu.com' && pass === '20200901') {
+                window.location.href = '27ShuXue.html';
+            } else {
+                alert('用户名或密码错误');
+            }
+        }
+
+        // 忘记密码提示
+        function forgotPassword(type) {
+            if (type === 'student') {
+                document.getElementById('student-forgot-note').innerText = '重置密码为生日';
+            } else {
+                document.getElementById('teacher-forgot-note').innerText = '重置密码为教工号';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南湾一中：找到我</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .content-card {
+            background-color: #ffffff;
+            padding: 50px 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            max-width: 900px;
+            width: 100%;
+            line-height: 1.8;
+        }
+
+        .content-card h2 {
+            font-size: 24px;
+            color: #26376a;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .content-card p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        .tips-list {
+            margin-top: 30px;
+            padding-left: 20px;
+        }
+
+        .tips-list h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .tips-list li {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .ending-quote {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .ending-quote .highlight {
+            font-family: "SimSun", serif;
+            font-size: 22px;
+            color: #26376a;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        .start-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 12px 40px;
+            background-color: #26376a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .start-btn:hover {
+            background-color: #1a2a55;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="content-card">
+
+            <h2>南湾一中：找到我</h2>
+
+            <p>
+                你是柳橙，毕业于南湾一中。某日，你忽然想起了高中时最好的朋友沈伏，但翻看通讯录却发现没有交换号码，也没有对方的联系方式。想到高考前的一整年，她一直行为古怪，似乎被什么困扰得很深。你心中隐隐觉得不安，决定登上南湾一中官网一探究竟。
+            </p>
+
+            <div class="tips-list">
+                <h3>游玩提示</h3>
+                <ol>
+                    <li>主要游玩方式为使用特定页面搜索框寻找信息，跳转到下一个页面后可查看更多信息进行解谜。</li>
+                    <li>每个页面右下角都有一个编号，编号越大，玩家越靠近真相。</li>
+                    <li>推荐游玩时打开备忘录记录关键信息。</li>
+                    <li>本游戏所有信息均显示在页面上，无需使用检查查看代码。</li>
+                    <li>本游戏含有微量恐怖元素，无Jump scare。</li>
+                </ol>
+            </div>
+
+            <a href="index.html" class="start-btn">回到那里</a>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <div class="page-indicator">00 / 31</div>
+
+</body>
+</html>
