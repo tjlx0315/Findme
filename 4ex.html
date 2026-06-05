@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>南湾一中智能系统学生端</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- 顶部灰条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 蓝色标题条 --- */
+        .header {
+            height: 60px;
+            background-color: #26376a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* --- 主体 --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- 左侧导航 --- */
+        .sidebar {
+            width: 220px;
+            background-color: #fff;
+            border-right: 1px solid #e8e8e8;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-item.active {
+            background-color: #1890ff;
+            color: white;
+        }
+
+        /* --- 中间列表 --- */
+        .middle-list {
+            width: 280px;
+            background-color: #fff;
+            border-right: 1px solid #e8e8e8;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .memo-item {
+            padding: 12px 15px;
+            background-color: #fafafa;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .memo-item:hover {
+            background-color: #e6f7ff;
+        }
+
+        .memo-item.red {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+
+        /* --- 右侧内容区 --- */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: #fff;
+            margin: 20px;
+            border-radius: 8px;
+        }
+
+        .placeholder {
+            color: #888;
+            font-size: 16px;
+        }
+
+        /* --- 备忘录样式 --- */
+        .memo-entry {
+            max-width: 100%;
+            padding: 15px 20px;
+            background-color: #fafafa;
+            border-left: 4px solid #26376a;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .memo-date {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        /* --- 底部声明 --- */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部灰条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 蓝色标题条 -->
+    <div class="header">
+        <div>欢迎登录，柳橙！</div>
+        <button class="logout-btn" onclick="logout()">退出登录</button>
+    </div>
+
+    <div class="main-container">
+
+        <!-- 左侧 -->
+        <div class="sidebar">
+            <div class="nav-item active">备忘录</div>
+        </div>
+
+        <!-- 中间 -->
+        <div class="middle-list">
+            <div class="section-title">我的备忘录</div>
+            <div class="memo-item" onclick="showMemo('m1')">2020.9.2</div>
+            <div class="memo-item" onclick="showMemo('m2')">2020.9.15</div>
+            <div class="memo-item" onclick="showMemo('m3')">2020.12.12</div>
+            <div class="memo-item" onclick="showMemo('m4')">2021.5.10</div>
+            <div class="memo-item" onclick="showMemo('m5')">2021.5.20</div>
+            <div class="memo-item" onclick="showMemo('m6')">2021.9.20</div>
+            <div class="memo-item" onclick="showMemo('m7')">2021.9.22</div>
+            <div class="memo-item" onclick="showMemo('m8')">2021.11.23</div>
+            <div class="memo-item" onclick="showMemo('m9')">2022.4.15</div>
+            <div class="memo-item" onclick="showMemo('m10')">2022.6.12</div>
+            <div class="memo-item" onclick="showMemo('m11')">2022.6.13</div>
+            <div class="memo-item" onclick="showMemo('m12')">2022.8.12</div>
+            <div class="memo-item" onclick="showMemo('m13')">2023.6.10</div>
+            <div class="memo-item" onclick="showMemo('m14')">2023.6.11</div>
+        </div>
+
+        <!-- 右侧 -->
+        <div class="content-area">
+            <div id="placeholder" class="placeholder">
+                请从左侧选择备忘录
+            </div>
+
+            <div id="memo-content" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- 底部声明 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <!-- 页码 -->
+    <div class="page-indicator">4 / EX</div>
+
+    <script>
+        const memos = {
+            m1: `<div class="memo-entry"><div class="memo-date">2020.9.2</div>今天负责国旗下讲话的同学叫“沈伏”，这是个好名字。</div>`,
+            m2: `<div class="memo-entry"><div class="memo-date">2020.9.15</div>开学后第一次数学考试她考了班级第一，好羡慕，如果能和她一样厉害就好了。</div>`,
+            m3: `<div class="memo-entry"><div class="memo-date">2020.12.12</div>学校的食堂开了新档口，沈伏陪我去试了，好多辣椒，好难吃。</div>`,
+            m4: `<div class="memo-entry"><div class="memo-date">2021.5.10</div>忘带课本了，她就把她自己的借给我了，她居然已经把整本学完了……朝哪个地方拜能获得这样的脑子化学成绩。</div>`,
+            m5: `<div class="memo-entry"><div class="memo-date">2021.5.20</div>……如果能这样一辈子就好了。</div>`,
+            m6: `<div class="memo-entry"><div class="memo-date">2021.9.20</div>她今天一整天都怪怪的，为什么一直在傻笑。</div>`,
+            m7: `<div class="memo-entry"><div class="memo-date">2021.9.22</div>无意中瞟到她日历了，原来她在过“认识小橙纪念日”，这都什么……</div>`,
+            m8: `<div class="memo-entry"><div class="memo-date">2021.11.23</div>再怎么说，我认识她也比这天早。</div>`,
+            m9: `<div class="memo-entry"><div class="memo-date">2022.4.15</div>又只考了80，讨厌数学。</div>`,
+            m10: `<div class="memo-entry"><div class="memo-date">2022.6.12</div>祝小伏生日快乐！</div>`,
+            m11: `<div class="memo-entry"><div class="memo-date">2022.6.13</div>感觉她最近怪怪的，老是魂不守舍，不行，一定要找个时间问问她。</div>`,
+            m12: `<div class="memo-entry"><div class="memo-date">2022.8.12</div>问起来就说不知道然后抱着我哭，啥啊。</div>`,
+            m13: `<div class="memo-entry"><div class="memo-date">2023.6.10</div>我们交换了手机号，约定毕业了一起去旅行。</div>`,
+            m14: `<div class="memo-entry"><div class="memo-date">2023.6.11</div>高考一切顺利。</div>`
+        };
+
+        function showMemo(key) {
+            document.getElementById('placeholder').style.display = 'none';
+            const memoContent = document.getElementById('memo-content');
+            memoContent.innerHTML = memos[key];
+            memoContent.style.display = 'block';
+        }
+
+        function logout() {
+            alert("已退出登录，即将返回登录界面");
+            window.location.href = 'index.html';
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+</body>
+</html>

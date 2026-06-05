@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>润泽集团</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #26376a;
+            color: #e0e0e0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- 顶部条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 头部 --- */
+        .header {
+            background-color: #26376a;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #3a4a8a;
+        }
+
+        .header img {
+            height: 70px;
+            width: auto;
+        }
+
+        .header-text h1 {
+            font-family: "SimSun", serif;
+            font-size: 28px;
+            margin: 0;
+            color: white;
+        }
+
+        /* --- 返回按钮（右上角） --- */
+        .back-link {
+            display: inline-block;
+            padding: 6px 10px;
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid #3a4a8a;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            float: right;
+            margin: 15px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- 中间内容 --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* 黑色区域 */
+        .main-image-placeholder {
+            background-color: #0d0d0d;
+            min-height: 450px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .damage-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .watch-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: rgba(80, 80, 80, 0);
+            transition: color 1.2s ease;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .main-image-placeholder:hover .watch-text {
+            color: rgba(90, 90, 90, 0.6);
+        }
+
+        /* --- 页码 --- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        /* --- 底部说明（新增） --- */
+        .footer {
+            background-color: #1a274d; /* 比背景稍深一点的蓝 */
+            color: #888;
+            padding: 20px 40px;
+            margin-top: 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部条 -->
+    <div class="top-bar">
+        <span id="static-date"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 头部 -->
+    <div class="header">
+        <img src="runze.png" alt="润泽集团 Logo">
+        <div class="header-text">
+            <h1>润泽集团</h1>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <a href="index.html" class="back-link">返回</a>
+
+    <!-- 中间内容 -->
+    <div class="container">
+        <div class="main-image-placeholder">
+            <div class="damage-text">文件已损坏</div>
+            <div class="watch-text">我正在看着你</div>
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <div class="page-indicator">1 / Ex</div>
+
+    <!-- ✅ 底部说明 -->
+    <footer class="footer">
+        <p>@润泽集团 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <script>
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        document.getElementById('static-date').innerText = `${year}年${month}月52日`;
+    </script>
+
+</body>
+</html>

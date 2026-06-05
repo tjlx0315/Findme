@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南湾一中官方网站</title>
+
+    <style>
+        /* --- 全局样式 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* --- 1. 顶部条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 2. 头部 (Logo + 校名) --- */
+        .header {
+            background-color: #26376a;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header img {
+            height: 70px;
+            width: auto;
+        }
+
+        .header-text h1 {
+            font-family: "SimSun", serif;
+            font-size: 28px;
+            margin: 0;
+            color: white;
+        }
+
+        .header-text p {
+            margin: 0;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-family: "SimSun", serif;
+            font-weight: normal;
+        }
+
+        /* --- 3. 导航栏 --- */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 40px;
+        }
+
+        .navbar li a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-search input {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 180px;
+        }
+
+        /* --- 内容区 --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: white;
+            padding: 18px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .detail-title {
+            font-family: "SimSun", serif;
+            font-size: 20px;
+            font-weight: normal;
+            margin-bottom: 18px;
+        }
+
+        .back-link {
+            float: right;
+            margin-top: -8px;
+            padding: 6px 10px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #26376a;
+        }
+
+        .detail-content p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .detail-image-placeholder {
+            background-color: #e9e9e9;
+            border: 2px dashed #ccc;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .detail-image-placeholder img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- 页码 --- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        /* --- 底部 --- */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            margin-top: 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 顶部条（带实时时间） -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 2. 头部 -->
+    <div class="header">
+        <img src="/Users/jiajia/Downloads/nanwan/nanwanlogo.png" alt="南湾一中 Logo">
+        <div class="header-text">
+            <h1>南湾一中</h1>
+            <p>育人&nbsp;&nbsp;育才&nbsp;&nbsp;育德&nbsp;&nbsp;育美</p>
+        </div>
+    </div>
+
+    <!-- 3. 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="index.html">学校概况</a></li>
+            <li><a href="5Notice.html">通知公告</a></li>
+            <li><a href="8Teacher.html">教工动态</a></li>
+            <li><a href="9Note.html">学生天地</a></li>
+            <li><a href="index.html">联系我们</a></li>
+        </ul>
+        <div class="nav-search">
+        </div>
+    </nav>
+
+    <!-- 4. 内容区 -->
+    <div class="container">
+        <div class="content-card">
+            <a href="index.html" class="back-link">返回</a>
+            <p class="detail-title">蔚海警局局长魏舒桐成为我校法治校长</p>
+
+            <div class="detail-content">
+                <p>3月20日，蔚海警局局长、南湾一中校友魏舒桐成为我校法治校长。</p>
+
+                <div class="detail-image-placeholder">
+                    魏舒桐与校长合影.jpg
+                </div>
+
+                <p>
+                    魏警官在我校就读高三期间，面对进入学校挟持人质的歹徒，她丝毫不惧，
+                    勇敢地替换人质并与歹徒周旋，并与警察配合解决了案件。
+                    在这一事件中，她保护了无辜同学的生命，展现出了极高的身体与心理素质，
+                    给办案警方留下了深刻印象。
+                </p>
+
+                <div class="detail-image-placeholder">
+                    <img src="往事.jpg" alt="魏舒桐">
+                </div>
+
+                <p>
+                    我们相信，在魏舒桐局长和蔚海警局的帮助之下，
+                    南湾一中的法制建设定能更进一步。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <div class="page-indicator">3 / 31</div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <!-- ✅ 实时时间脚本（已改为：05月05日格式，含星期） -->
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问受限</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #1a1a1a; /* 深灰近黑 */
+            color: #888; /* 暗淡的文字颜色 */
+            overflow: hidden; /* 防止滚动条破坏氛围 */
+            animation: subtleShake 0.1s infinite alternate; /* 轻微震颤特效 */
+        }
+
+        @keyframes subtleShake {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(1px, 1px); }
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding-left: 0; }
+
+        /* --- 1. 顶部条 --- */
+        .top-bar {
+            background-color: #2a2a2a;
+            color: #666;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 2. 头部 --- */
+        .header {
+            background-color: #111;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .header img {
+            height: 70px;
+            width: auto;
+            filter: grayscale(100%) brightness(0.7); /* 图片变暗 */
+        }
+
+        .header-text h1 {
+            font-family: "SimSun", serif;
+            font-size: 28px;
+            margin: 0;
+            color: #666;
+        }
+
+        .header-text p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+            font-family: "SimSun", serif;
+        }
+
+        /* --- 3. 导航栏 --- */
+        .navbar {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #333;
+            padding: 0 40px;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 40px;
+        }
+
+        .navbar li a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* --- 返回按钮 --- */
+        .back-link {
+            display: inline-block;
+            padding: 6px 10px;
+            background: transparent;
+            color: #444;
+            border: 1px solid #333;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            float: right;
+            margin: 15px 0;
+            cursor: none; /* 隐藏默认光标 */
+        }
+
+        /* --- 4. 主要内容区 --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .main-content {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .warning-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #c0392b; /* 暗红色警告 */
+            text-shadow: 0 0 10px rgba(192, 57, 43, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .sub-text {
+            font-size: 18px;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        /* --- 幽灵文字特效 --- */
+        .ghost-text {
+            position: absolute;
+            font-size: 12px;
+            color: #2a2a2a;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* --- 页码 --- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #555;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        /* --- 底部 --- */
+        .footer {
+            background-color: #111;
+            color: #444;
+            padding: 20px 40px;
+            margin-top: 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* --- 自定义光标 --- */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #c0392b;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s linear;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 自定义光标 -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- 1. 顶部条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 2. 头部 -->
+    <div class="header">
+        <img src="/Users/jiajia/Downloads/nanwan/nanwanlogo.png" alt="南湾一中 Logo">
+        <div class="header-text">
+            <h1>南湾一中</h1>
+            <p>育人&nbsp;&nbsp;育才&nbsp;&nbsp;育德&nbsp;&nbsp;育美</p>
+        </div>
+    </div>
+
+    <!-- 3. 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="#">学校概况</a></li>
+            <li><a href="#">通知公告</a></li>
+            <li><a href="#">教工动态</a></li>
+            <li><a href="#">学生天地</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <!-- 4. 主要内容区 -->
+    <div class="container">
+        <a href="index.html" class="back-link">返回</a>
+        
+        <div class="main-content">
+            <div class="warning-text">不要逃避思考</div>
+            <div class="sub-text">您正在尝试访问受限制的内部账户。</div>
+            <div class="sub-text" style="margin-top: 10px; color: #444;">
+                该用户已启用高级隐私保护策略。<br>
+                请勿在未获得明确授权的情况下，反复试探其身份边界。
+            </div>
+        </div>
+
+        <!-- 幽灵文字背景 -->
+        <div class="ghost-text" style="top: 10%; left: 5%;">ERROR_403</div>
+        <div class="ghost-text" style="top: 30%; left: 80%;">ACCESS DENIED</div>
+        <div class="ghost-text" style="top: 70%; left: 15%;">THINK_AGAIN</div>
+        <div class="ghost-text" style="top: 85%; left: 60%;">WATCHING_YOU</div>
+
+    </div>
+
+    <!-- 页码 -->
+    <div class="page-indicator">3 / ex</div>
+
+    <!-- 5. 底部说明 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+<script>
+    // 伪乱码日期（看起来在乱跳，但不影响布局）
+    function updateTime() {
+        const year = new Date().getFullYear();
+
+        // 随机生成“假数字”
+        const randNum = () => Math.floor(Math.random() * 10);
+
+        const month = `${randNum()}${randNum()}`;
+        const day = `${randNum()}${randNum()}`;
+
+        document.getElementById('current-time').innerText =
+            `${year}年${month}月${day}日`;
+    }
+
+    setInterval(updateTime, 700); // 稍微慢一点，更有故障感
+    updateTime();
+</script>
+
+        // 自定义光标逻辑
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+
+        // 鼠标点击时的反馈
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
+            cursor.style.borderColor = '#fff';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.borderColor = '#c0392b';
+        });
+    </script>
+
+</body>
+</html>
