@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出发前的抉择</title>
+
+    <style>
+        /* --- 全局重置 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- 1. 顶部灰条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        /* --- 2. 主体卡片 --- */
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            width: 90%;
+            max-width: 500px;
+            margin-top: 50px; /* 避开顶部条 */
+            text-align: center;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 24px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* --- 输入框区域 --- */
+        #codeInput {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none; /* 初始隐藏 */
+            outline: none;
+        }
+
+        #codeInput:focus {
+            border-color: #007bff;
+        }
+
+        /* --- 新增：确定按钮样式 --- */
+        #confirmBtn {
+            margin-top: 15px;
+            display: none; /* 初始隐藏 */
+            padding: 10px 40px; /* 比普通按钮宽一点 */
+            background-color: #1f3a5f; /* 深色背景 */
+            color: white;
+            border: none;
+        }
+
+        #confirmBtn:hover {
+            background-color: #2a4a7a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 顶部条（实时时间） -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 2. 主体内容 -->
+    <div class="card">
+        <h2>出发前，是否告知他人你的去向？</h2>
+        
+        <div class="btn-group">
+            <button onclick="handleYes()">是</button>
+            <button onclick="handleNo()">否</button>
+        </div>
+
+        <!-- 这里是输入框和确定按钮 -->
+        <input type="text" id="codeInput" placeholder="请输入告知者联系方式">
+        <button id="confirmBtn" onclick="submitCode()">确定</button>
+    </div>
+
+    <script>
+        // 实时时间（带补零）
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            
+            document.getElementById('current-time').innerText = 
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 处理“是”的逻辑
+        function handleYes() {
+            const input = document.getElementById('codeInput');
+            const confirmBtn = document.getElementById('confirmBtn');
+            
+            input.style.display = 'block';
+            confirmBtn.style.display = 'inline-block'; // 显示确定按钮
+        }
+
+        // 处理“否”的逻辑
+        function handleNo() {
+            window.location.href = '1end.html';
+        }
+
+        // 提交代码的函数
+        function submitCode() {
+            const code = document.getElementById('codeInput').value;
+            checkCode(code);
+        }
+
+        // 检查输入的代码
+        function checkCode(code) {
+            const cleanCode = code.trim();
+            
+            if (cleanCode === '170-3018' || cleanCode === '170-42-3947') {
+                window.location.href = '2end.html';
+            } else {
+                window.location.href = '1end.html';
+            }
+        }
+    </script>
+</body>
+</html>

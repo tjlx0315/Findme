@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>润泽集团OA</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 1. 顶部灰条（新增）--- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 顶部标题栏 */
+        .header {
+            height: 60px;
+            background-color: #1f3a5f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* 主内容区 */
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* OA卡片 */
+        .oa-card {
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .oa-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .oa-header h4 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .oa-header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .oa-row {
+            display: flex;
+            margin-bottom: 18px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .oa-label {
+            width: 110px;
+            color: #888;
+            flex-shrink: 0;
+        }
+
+        .oa-value {
+            color: #333;
+            flex: 1;
+        }
+
+        .oa-value.red {
+            color: #cf1322;
+            font-weight: bold;
+        }
+
+        .oa-note {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #1f3a5f;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* --- 3. 底部说明条（新增）--- */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* 页码 */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 顶部条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 顶部标题栏 -->
+    <div class="header">
+        <div>润泽集团 · 内部协作平台</div>
+        <button class="logout-btn" onclick="logout()">退出</button>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-container">
+        <div class="oa-card">
+            <div class="oa-header">
+                <h4>外勤报备申请单</h4>
+                <p>申请编号：RZ-20221207-001</p>
+            </div>
+
+            <div class="oa-row">
+                <div class="oa-label">报备人：</div>
+                <div class="oa-value">辛沐（驻南湾一中专员）</div>
+            </div>
+            <div class="oa-row">
+                <div class="oa-label">报备时间：</div>
+                <div class="oa-value">2023-06-11 12:50</div>
+            </div>
+            <div class="oa-row">
+                <div class="oa-label">预计返回：</div>
+                <div class="oa-value">2023-06-12 02:00</div>
+            </div>
+            <div class="oa-row">
+                <div class="oa-label">外勤地点：</div>
+                <div class="oa-value red">江流科技园区232-WJ</div>
+            </div>
+            <div class="oa-row">
+                <div class="oa-label">外勤事由：</div>
+                <div class="oa-value">云江计划设备调试（紧急）</div>
+            </div>
+
+            <div class="oa-note">
+                <strong>系统同步信息：</strong>该行程已与南湾一中一卡通系统完成数据对接。
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 底部说明 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <!-- 页码 -->
+    <div class="page-indicator">28 / 31</div>
+
+    <script>
+        // 实时时间（已改为：05月05日格式）
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function logout() {
+            alert("已退出登录，即将返回登录界面");
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>

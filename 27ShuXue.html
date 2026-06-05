@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>南湾一中智能系统教师端</title>
+
+    <style>
+        /* --- 基础重置 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- 顶部标题栏 --- */
+        .header {
+            height: 60px;
+            background-color: #26376a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff7875;
+        }
+
+        /* --- 主体布局 --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- 左侧导航栏 --- */
+        .sidebar {
+            width: 220px;
+            background-color: #fff;
+            border-right: 1px solid #e8e8e8;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            padding: 0 20px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            padding: 12px 25px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .nav-item:hover {
+            background-color: #f0f2f5;
+        }
+
+        .nav-item.active {
+            background-color: #1890ff;
+            color: white;
+            border-right: 4px solid #096dd9;
+        }
+
+        /* --- 右侧内容区 --- */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        /* --- 内容卡片通用样式 --- */
+        .card {
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-height: 500px; /* 保证页面有一定高度 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #333;
+            border-left: 4px solid #1890ff;
+            padding-left: 12px;
+        }
+
+        /* --- 数学题视图 --- */
+        .math-view {
+            text-align: center;
+        }
+        
+        .math-view img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* --- 邮件视图 --- */
+        .email-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .email-row {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .email-label {
+            width: 80px;
+            color: #888;
+            flex-shrink: 0;
+        }
+
+        .email-value {
+            color: #333;
+            flex: 1;
+        }
+
+        .email-time {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .email-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            white-space: pre-wrap;
+            margin-bottom: 30px;
+        }
+
+        /* 链接样式 */
+        .email-link {
+            color: #1890ff;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- 页码 --- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>南湾一中智能系统教师端</div>
+        <div class="header-right">
+            <span>欢迎登录，陈淼！</span>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- 左侧导航栏 -->
+        <div class="sidebar">
+            <div class="nav-item active" onclick="showResource()">资源</div>
+            <div class="nav-item" onclick="showMail()">邮箱</div>
+        </div>
+
+        <!-- 右侧内容区 -->
+        <div class="content-area">
+            <!-- 数学资源视图 -->
+            <div id="resource-view" class="card">
+                <div class="card-title">高二数学周练附加题</div>
+                <div class="math-view">
+                    <!-- 这里直接加载图片 -->
+                    <img src="shuxue.png" alt="高二数学周练附加题">
+                </div>
+            </div>
+
+            <!-- 邮件视图 (默认隐藏) -->
+            <div id="mail-view" class="card" style="display: none;">
+                <div class="card-title">系统邮箱</div>
+                
+                <div class="email-header">
+                    <div class="email-row">
+                        <div class="email-label">发件人：</div>
+                        <div class="email-value">学校信息中心</div>
+                    </div>
+                    <div class="email-row">
+                        <div class="email-label">收件人：</div>
+                        <div class="email-value">陈淼</div>
+                    </div>
+                    <div class="email-row">
+                        <div class="email-label">时间：</div>
+                        <div class="email-value email-time">2026-05-28 10:30</div>
+                    </div>
+                </div>
+
+                <div class="email-content">
+尊敬的老师，您好！
+
+“<u class="email-link" onclick="window.location.href='29YiKaTong.html'">南湾一中一卡通系统</u>”已开通，您可以通过链接进入系统进行操作。
+
+感谢您的配合。
+
+                                    —— 信息中心
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-indicator">27 / 31</div>
+
+    <script>
+        // 显示资源页面
+        function showResource() {
+            document.getElementById('resource-view').style.display = 'block';
+            document.getElementById('mail-view').style.display = 'none';
+            
+            // 更新导航高亮
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelector('.nav-item:nth-child(2)').classList.add('active'); // “资源”是第二个
+        }
+
+        // 显示邮箱页面
+        function showMail() {
+            document.getElementById('resource-view').style.display = 'none';
+            document.getElementById('mail-view').style.display = 'block';
+            
+            // 更新导航高亮
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelector('.nav-item:nth-child(3)').classList.add('active'); // “邮箱”是第三个
+        }
+
+        // 退出登录
+        function logout() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

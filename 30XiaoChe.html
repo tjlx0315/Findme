@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沈伏一卡通出行记录</title>
+
+    <style>
+        /* --- 全局重置 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- 1. 顶部灰条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 2. 主体内容区 --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .oa-card {
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 680px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .oa-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .oa-header h4 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .oa-header p {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .oa-row {
+            display: flex;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .oa-label {
+            width: 130px;
+            color: #888;
+        }
+
+        .oa-value {
+            color: #333;
+        }
+
+        .oa-value.red {
+            color: #cf1322;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: none;
+            border: 1px solid #1f3a5f;
+            color: #1f3a5f;
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #1f3a5f;
+            color: white;
+        }
+
+        .form-area {
+            margin-top: 20px;
+            display: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 6px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* --- 放弃提示 --- */
+        .abandon-overlay {
+            position: fixed;
+            inset: 0;
+            background: white;
+            color: #cf1322;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 3s ease;
+            z-index: 9999;
+        }
+
+        .abandon-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* --- 3. 底部说明条 --- */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* --- 浮动页码框 --- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.55);
+            color: white;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. 顶部条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 2. 主体内容 -->
+    <div class="main-container">
+        <div class="oa-card">
+            <div class="oa-header">
+                <h4>出行异常记录 #30</h4>
+                <p>数据来源：南湾一中一卡通系统</p>
+            </div>
+
+            <div class="oa-row">
+                <div class="oa-label">日期</div>
+                <div class="oa-value">2023-06-11</div>
+            </div>
+
+            <div class="oa-row">
+                <div class="oa-label">出口位置</div>
+                <div class="oa-value">学校北二门（刷卡）</div>
+            </div>
+
+            <div class="oa-row">
+                <div class="oa-label">当前状态</div>
+                <div class="oa-value red">异常 · 无法检测</div>
+            </div>
+
+            <hr>
+
+            <p style="margin: 20px 0;">是否尝试预约校车？</p>
+
+            <button class="btn" onclick="showForm()">是</button>
+            <button class="btn" onclick="giveUp()">否</button>
+
+            <div class="form-area" id="formArea">
+                <label>请输入密码（区分大小写，无空格）</label>
+                <input type="text" id="keyInput" placeholder="">
+
+                <label>请输入地点</label>
+                <input type="text" id="locInput" placeholder="">
+
+                <button class="btn" style="margin-top:15px;" onclick="submitForm()">提交</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 底部说明 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <!-- 浮动页码 -->
+    <div class="page-indicator">30 / 31</div>
+
+    <script>
+        // 更新顶部时间（已改为：05月05日格式）
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function showForm() {
+            document.getElementById("formArea").style.display = "block";
+        }
+
+        function submitForm() {
+            var key = document.getElementById("keyInput").value.trim();
+            var loc = document.getElementById("locInput").value.trim();
+
+            // 严格匹配 QiMingXing 和 江流科技园区232-WJ
+            if (key === "QiMingXing" && loc === "江流科技园区232-WJ") {
+                location.href = "31Choice.html";
+            } else {
+                location.href = "1end.html";
+            }
+        }
+
+        function giveUp() {
+            document.getElementById("abandonOverlay").classList.add("show");
+        }
+    </script>
+
+    <!-- 放弃提示层 -->
+    <div class="abandon-overlay" id="abandonOverlay">
+        你放弃她了
+    </div>
+
+</body>
+</html>
