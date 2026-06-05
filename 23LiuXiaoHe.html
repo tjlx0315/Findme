@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>刘晓荷论坛主页</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            padding-top: 30px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            background-color: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 30px;
+            z-index: 99;
+        }
+
+        .navbar-logo {
+            font-family: "SimHei", sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1f3a5f;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            font-family: "SimHei", sans-serif;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .nav-back {
+            margin-right: 20px;
+            font-size: 14px;
+            color: #1f3a5f;
+            font-family: "SimHei", sans-serif;
+            cursor: pointer;
+        }
+
+        .nav-back:hover {
+            text-decoration: underline;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb a {
+            color: #1f3a5f;
+        }
+
+        .user-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* ✅ 修改：头像改为图片 */
+        .user-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 12px;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-id {
+            font-family: "SimHei", sans-serif;
+            font-size: 20px;
+            color: #1f3a5f;
+        }
+
+        .user-sub {
+            font-size: 13px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .tweet-card {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* ✅ 修改：动态头像改为图片 */
+        .tweet-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .tweet-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tweet-user {
+            flex: 1;
+        }
+
+        .tweet-name {
+            font-weight: bold;
+            color: #1f3a5f;
+            font-size: 15px;
+        }
+
+        .tweet-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .tweet-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .locked-section {
+            background: #fff4f4;
+            border-left: 4px solid #e74c3c;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .locked-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .locked-hint {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .password-input {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        .unlock-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            background: #1f3a5f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .locked-content {
+            display: none;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #444;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .footer {
+            background-color: #1f3a5f;
+            color: #cfd8dc;
+            text-align: center;
+            padding: 30px;
+            font-size: 13px;
+        }
+
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            font-family: "SimHei", sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-logo">云江论坛</div>
+        <div class="nav-links">
+            <a href="#">首页</a>
+            <a href="#">版块</a>
+            <a href="#">精选</a>
+            <a href="#">排行榜</a>
+        </div>
+        <a href="19LunTan.html" class="nav-back">← 返回</a>
+    </nav>
+
+    <div class="main-container">
+
+        <div class="breadcrumb">
+            <a href="19LunTan.html">云江论坛</a> › <a href="#">用户列表</a> › 刘晓荷
+        </div>
+
+        <div class="user-header">
+            <!-- ✅ 使用 LXH.png -->
+            <div class="user-avatar">
+                <img src="LXH.png" alt="刘晓荷">
+            </div>
+            <div class="user-id">刘晓荷</div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2023-09-01</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                我把纸条塞在小汐口袋里了。我走了。
+            </div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2023-08-23</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                有人通知我要走了，为什么？为什么没人告诉我！！！
+            </div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2023-06-12</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                我已经分不清是白天还是黑夜了，这里灯火通明。
+            </div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2022-05-21</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                今天认识了袁汐，我想告诉她这里发生的一切，但这是安全的吗？
+            </div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2022-03-05</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                我昨天咬掉了看守的一只耳朵，果不其然被关了禁闭，终于图穷匕见了啊。我把血涂在卫生间镜子上了，不知道有没有人看到呢？
+            </div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2022-02-25</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                我真的恨透了他们，一定要出去……
+            </div>
+        </div>
+
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-avatar">
+                    <img src="LXH.png" alt="刘晓荷">
+                </div>
+                <div class="tweet-user">
+                    <div class="tweet-name">刘晓荷</div>
+                    <div class="tweet-time">2022-12-17</div>
+                </div>
+            </div>
+            <div class="tweet-content">
+                今天我知道自己逃不出去了，好可笑，在学校为名额争得头破血流的时候，又有谁能想到这一天呢？
+            </div>
+        </div>
+
+        <div class="locked-section" id="lockedSection">
+            <div class="locked-title">🔒 加密日志</div>
+            <div class="locked-hint">提示：base64</div>
+
+            <input type="password" class="password-input" id="pwdInput" placeholder="请输入密码">
+            <br>
+            <button class="unlock-btn" onclick="unlock()">解锁</button>
+
+            <div class="locked-content" id="lockedContent">
+你能看到这里，说明小汐把密码给了你，大概她已经逃出去了吧。
+如果可以的话，请拿着这个资料去找我哥哥刘晓葭，告诉他这个园区的地址，他会找人来救其他人的。
+从我是“云江计划”的第一届学员，同样，我也是从那个该死的“启明星计划”里被选中的，和袁汐一样。
+开始的一年都毫无问题，直到有人喝了他们给的水金属中毒，我才知道处理后的水因“纰漏”接到了我们的水管那里，但事发后依旧没人管，我们只是耗材而已。
+“润泽惠生”，实际上是“生惠泽润”，所有人利用着我们的成果，把我们的血肉撒向这个可恶的世界，但世人只以为那是粉红色蝴蝶，多美啊。
+那个中毒的人死在了一个艳阳天，她死前把最后一眼留给了我。我当时不知道她为什么要这样做，明明我不认识她。
+后来我终于明白了。她相信我，她也只敢相信我。
+现在我把这一切都告诉你了，很抱歉我没能了解到更多。但我相信你，请救救她们。
+以及，请别忘了我。
+刘晓荷
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        @润泽集团 本界面非真实官方网站，仅作解谜使用。
+    </footer>
+
+    <div class="page-indicator">25 / 31</div>
+
+    <script>
+        function unlock() {
+            const input = document.getElementById('pwdInput').value;
+            if (input === 'RUN!!!') {
+                document.getElementById('lockedContent').style.display = 'block';
+            }
+        }
+    </script>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+</body>
+</html>
