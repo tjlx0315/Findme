@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>南湾一中智能系统教师端</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 顶部标题栏 */
+        .header {
+            height: 60px;
+            background-color: #26376a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff7875;
+        }
+
+        /* 主体内容区 */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 220px;
+            background-color: #fff;
+            border-right: 1px solid #e8e8e8;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            padding: 0 20px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            padding: 12px 25px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .nav-item:hover {
+            background-color: #f0f2f5;
+        }
+
+        .nav-item.active {
+            background-color: #1890ff;
+            color: white;
+            border-right: 4px solid #096dd9;
+        }
+
+        /* 中间列表区 */
+        .middle-list {
+            width: 280px;
+            background-color: #fff;
+            border-right: 1px solid #e8e8e8;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .class-item {
+            padding: 12px 15px;
+            background-color: #fafafa;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #555;
+            transition: all 0.2s;
+        }
+
+        .class-item:hover {
+            background-color: #e6f7ff;
+            border-color: #1890ff;
+        }
+
+        /* 右侧内容区 */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: #fff;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .placeholder-text {
+            color: #888;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* 邮件详情卡片 */
+        .email-card {
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .email-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .email-row {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .email-label {
+            width: 80px;
+            color: #888;
+            flex-shrink: 0;
+        }
+
+        .email-value {
+            color: #333;
+            flex: 1;
+        }
+
+        .email-status {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+
+        .email-reason {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+            padding-left: 80px;
+        }
+
+        .email-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            white-space: pre-wrap;
+        }
+
+        /* 通用图片展示 */
+        .table-view {
+            text-align: center;
+        }
+
+        .table-view img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* 页码 */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部标题栏 -->
+    <div class="header">
+        <div>南湾一中智能系统教师端</div>
+        <div class="header-right">
+            <span>欢迎登录，郑水华！</span>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+    </div>
+
+    <!-- 主体内容区 -->
+    <div class="main-container">
+
+        <!-- 左侧导航栏 -->
+        <div class="sidebar">
+            <div class="logo">南湾一中智能系统</div>
+            <div class="nav-item active" onclick="showManage()">管理</div>
+            <div class="nav-item" onclick="showMail()">邮箱</div>
+            <div class="nav-item" style="color: #ccc; cursor: not-allowed;">明细</div>
+            <div class="nav-item" style="color: #ccc; cursor: not-allowed;">设置</div>
+        </div>
+
+        <!-- 中间列表区 -->
+        <div class="middle-list">
+            <div id="manage-list">
+                <div class="section-title">班级管理</div>
+                <div class="class-item" onclick="showClassList()">班级名单</div>
+                <div class="class-item" onclick="showBookFair()">20级12班书香校园</div>
+            </div>
+
+            <div id="mail-list" style="display: none;">
+                <div class="section-title">邮箱分类</div>
+                <div class="class-item">收件箱</div>
+                <div class="class-item">已发送</div>
+                <div class="class-item">草稿箱</div>
+            </div>
+        </div>
+
+        <!-- 右侧内容区 -->
+        <div class="content-area">
+            <div id="default-placeholder" class="placeholder-text">
+                <h2>管理</h2>
+                请选择左侧菜单或中间列表进行操作。
+            </div>
+
+            <!-- 拟真邮件界面 -->
+            <div id="mail-detail" class="email-card" style="display: none;">
+                <div class="email-header">
+                    <div class="email-row">
+                        <div class="email-label">收件人：</div>
+                        <div class="email-value">沈伏 (******@***.com)</div>
+                    </div>
+                    <div class="email-row">
+                        <div class="email-label">发件人：</div>
+                        <div class="email-value">郑水华</div>
+                    </div>
+                    <div class="email-row">
+                        <div class="email-label">发送时间：</div>
+                        <div class="email-value">2023年3月28号</div>
+                    </div>
+                    <div class="email-row">
+                        <div class="email-label">状态：</div>
+                        <div class="email-value email-status">未送达</div>
+                    </div>
+                    <div class="email-reason">说明：对方邮箱已注销</div>
+                </div>
+                <div class="email-content">
+沈同学，你的手机打不通，那我就发邮件通知。教学办那边找到了你的重要文件，请于6.9前回校领取。
+                </div>
+            </div>
+
+            <!-- 班级名单 -->
+            <div id="class-list-view" class="table-view" style="display: none;">
+                <img src="table3.png" alt="班级名单">
+            </div>
+
+            <!-- 书香校园 -->
+            <div id="book-fair-view" class="table-view" style="display: none;">
+                <img src="book.png" alt="书香校园">
+            </div>
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <div class="page-indicator">11 / 31</div>
+
+    <script>
+        function showManage() {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.nav-item')[0].classList.add('active');
+
+            document.getElementById('manage-list').style.display = 'block';
+            document.getElementById('mail-list').style.display = 'none';
+
+            document.getElementById('default-placeholder').style.display = 'block';
+            document.getElementById('mail-detail').style.display = 'none';
+            document.getElementById('class-list-view').style.display = 'none';
+            document.getElementById('book-fair-view').style.display = 'none';
+        }
+
+        function showMail() {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.nav-item')[1].classList.add('active');
+
+            document.getElementById('manage-list').style.display = 'none';
+            document.getElementById('mail-list').style.display = 'block';
+
+            document.getElementById('default-placeholder').style.display = 'none';
+            document.getElementById('mail-detail').style.display = 'block';
+            document.getElementById('class-list-view').style.display = 'none';
+            document.getElementById('book-fair-view').style.display = 'none';
+        }
+
+        function showClassList() {
+            document.getElementById('default-placeholder').style.display = 'none';
+            document.getElementById('mail-detail').style.display = 'none';
+            document.getElementById('class-list-view').style.display = 'block';
+            document.getElementById('book-fair-view').style.display = 'none';
+        }
+
+        function showBookFair() {
+            document.getElementById('default-placeholder').style.display = 'none';
+            document.getElementById('mail-detail').style.display = 'none';
+            document.getElementById('class-list-view').style.display = 'none';
+            document.getElementById('book-fair-view').style.display = 'block';
+        }
+
+        function logout() {
+            alert("已退出登录，即将返回登录界面");
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>

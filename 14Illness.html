@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>南湾心理测评系统</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #e6f2ff;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部灰条 */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 蓝色标题条 */
+        .page-header {
+            background-color: #26376a;
+            color: white;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .page-header-left {
+            font-weight: bold;
+        }
+
+        .page-header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* ✅ 返回按钮 */
+        .back-btn {
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            color: white;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+        }
+
+        /* 主体 */
+        .main-container {
+            flex: 1;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 病历卡片 */
+        .record-card {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 35px 40px;
+        }
+
+        .record-title {
+            font-family: "SimSun", serif;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #26376a;
+        }
+
+        .record-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .record-section {
+            margin-bottom: 16px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .record-section h3 {
+            font-size: 15px;
+            color: #26376a;
+            margin-bottom: 6px;
+            border-left: 3px solid #26376a;
+            padding-left: 8px;
+        }
+
+        .record-section strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .signature {
+            position: absolute;
+            right: 40px;
+            bottom: 30px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* 底部 */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部灰条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 蓝色标题条 -->
+    <div class="page-header">
+        <span class="page-header-left">南湾心理</span>
+        <div class="page-header-right">
+            <!-- ✅ 返回按钮 -->
+        <a href="index.html" class="back-btn">← 返回</a>
+            <span class="welcome-text">欢迎登录，沈伏！</span>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="main-container">
+        <div class="record-card">
+
+            <div class="record-title">
+                南湾一中学生心理评估记录
+            </div>
+
+            <div class="record-meta">
+                <span>档案号：NWXL‑2012‑SF</span>
+                <span>评估日期：2023 年 2 月</span>
+            </div>
+
+            <div class="record-section">
+                <h3>一、主诉</h3>
+                <p>
+                    反复出现“即将遭遇不测”的预感，伴焦虑、回避行为及自伤，
+                    病程约 18 个月。
+                </p>
+            </div>
+
+            <div class="record-section">
+                <h3>二、病史摘要</h3>
+                <p>
+                    <strong>核心症状：</strong>灾难化预期：持续存在“将发生无法避免的灾祸”的预感，
+                    无具体内容，与现实刺激不成比例。<br>
+                    <strong>高警觉行为：</strong>反复检查门窗、床位；回避走廊边缘、高处及人群密集场所；
+                    选择靠墙座位。<br>
+                    <strong>情绪改变：</strong>持续焦虑，情感反应迟钝，兴趣减退。<br>
+                    <strong>自伤行为：</strong>后使用锐器划伤左前臂，累计约 10 次，
+                    多为浅层切割伤，多在预感强烈时出现。
+                </p>
+            </div>
+
+            <div class="record-section">
+                <h3>三、精神状态检查（MSE）</h3>
+                <p>
+                    <strong>外观与行为：</strong>衣着整洁，长袖遮盖手臂。坐姿僵硬，双手紧握。<br>
+                    <strong>言语与思维：</strong>语速慢，量少，有时有幻听。无系统性妄想。
+                    存在灾难化思维。<br>
+                    <strong>情感：</strong>表情平淡，谈及未来时无愉悦感。<br>
+                    <strong>认知：</strong>定向力完整。记忆力、计算力正常。<br>
+                    <strong>自知力：</strong>部分存在，承认预感“可能不真实”，但无法控制焦虑。
+                </p>
+            </div>
+
+            <div class="record-section">
+                <h3>四、风险评估</h3>
+                <p>
+                    <strong>自伤风险：</strong>中（已有规律性行为，且诱因持续存在）。<br>
+                    <strong>自杀风险：</strong>低‑中（无具体计划，但对未来持否定态度）。<br>
+                    <strong>伤人风险：</strong>无。
+                </p>
+            </div>
+
+            <div class="record-section">
+                <h3>五、初步诊断印象</h3>
+                <p>
+                    持续性复杂创伤后应激障碍<br>
+                    （Prolonged Duress Stress Disorder）<br>
+                    非自杀性自伤行为（NSSI）
+                </p>
+            </div>
+
+            <div class="record-section">
+                <h3>六、处置建议</h3>
+                <p>
+                    建议持续跟踪观察。
+                </p>
+            </div>
+
+            <div class="signature">
+                评估师签名：林泉
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <!-- 页码 -->
+    <div class="page-indicator">14 / 31</div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+</body>
+</html>

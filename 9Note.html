@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南湾一中官方网站</title>
+
+    <style>
+        /* ---------- 全局 & 通用（严格对齐 index） ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* --- 顶部条 --- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 头部（和 index 完全一致） --- */
+        .header {
+            background-color: #26376a;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header img {
+            height: 70px;
+            width: auto;
+        }
+
+        .header-text h1 {
+            font-family: "SimSun", serif;
+            font-size: 28px;
+            margin: 0;
+            color: white;
+        }
+
+        /* ✅ 校训：白色、宋体、非加粗（和 index 一致） */
+        .header-text p {
+            margin: 0;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-family: "SimSun", serif;
+            font-weight: normal;
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 40px;
+        }
+
+        .navbar li a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .nav-search input {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            float: right;
+            padding: 6px 10px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #26376a;
+            margin-bottom: 10px;
+        }
+
+        .detail-title {
+            font-family: "SimSun", serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            clear: both;
+        }
+
+        /* ---------- 便利贴墙 ---------- */
+        .sticky-wall {
+            position: relative;
+            width: 100%;
+            min-height: 580px;
+            background-color: #fffbe6;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .note {
+            position: absolute;
+            width: 190px;
+            height: 170px;
+            padding: 18px;
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.5;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+            cursor: pointer;
+            background-color: #fff59d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .note:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .note.shenfu {
+            background-color: #ffcc80;
+            z-index: 20;
+        }
+
+        /* ---------- 放大层 ---------- */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .note-large {
+            width: 420px;
+            min-height: 340px;
+            background-color: #fff59d;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 22px;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .note-large.shenfu-large {
+            background-color: #ffcc80;
+        }
+
+        .note-large .date {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* ---------- 页码 ---------- */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        /* ---------- 底部 ---------- */
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            margin-top: 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 头部（和 index 完全一致） -->
+    <div class="header">
+        <img src="nanwanlogo.png" alt="南湾一中 Logo">
+        <div class="header-text">
+            <h1>南湾一中</h1>
+            <p>育人&nbsp;&nbsp;育才&nbsp;&nbsp;育德&nbsp;&nbsp;育美</p>
+        </div>
+    </div>
+    <!-- 3. 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="index.html">学校概况</a></li>
+            <li><a href="5Notice.html">通知公告</a></li>
+            <li><a href="8Teacher.html">教工动态</a></li>
+            <li><a href="9Note.html">学生天地</a></li>
+            <li><a href="index.html">联系我们</a></li>
+        </ul>
+        <div class="nav-search">
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <a href="index.html" class="back-link">返回</a>
+        <p class="detail-title">学生天地 · 心愿墙</p>
+
+        <div class="sticky-wall">
+            <!-- 第一行 -->
+            <div class="note" style="top: 40px; left: 100px; transform: rotate(-5deg);"
+                 onclick="openNote('运动会怎么下雨了（哭）', '2020年9月15日', false)">
+                运动会怎么下雨了（哭）
+            </div>
+
+            <div class="note" style="top: 50px; left: 320px; transform: rotate(3deg);"
+                 onclick="openNote('食堂好难吃！', '2020年10月8日', false)">
+                食堂好难吃！
+            </div>
+
+            <div class="note" style="top: 35px; left: 540px; transform: rotate(-2deg);"
+                 onclick="openNote('我想回家。', '2020年11月20日', false)">
+                我想回家。
+            </div>
+
+            <div class="note shenfu" style="top: 45px; left: 760px; transform: rotate(4deg);"
+                 onclick="openNote('祝世界上最好的沈伏同学<br>16岁生日快乐，<br>一定要幸福！', '2021年4月15日', true)">
+                 祝小伏生日快乐！
+            </div>
+
+            <!-- 第二行 -->
+            <div class="note" style="top: 220px; left: 90px; transform: rotate(2deg);"
+                 onclick="openNote('又考差了好沮丧。', '2020年3月5日', false)">
+                又考差了好沮丧。
+            </div>
+
+            <div class="note" style="top: 210px; left: 320px; transform: rotate(-3deg);"
+                 onclick="openNote('想和她永远在一起', '2021年1月14日', false)">
+                想和她永远在一起
+            </div>
+
+            <div class="note" style="top: 230px; left: 560px; transform: rotate(1deg);"
+                 onclick="openNote('高考还有15天', '2021年5月23日', false)">
+                高考还有15天
+            </div>
+
+            <div class="note" style="top: 200px; left: 790px; transform: rotate(-1deg);"
+                 onclick="openNote('小卖铺的蛋糕好吃', '2021年6月1日', false)">
+                小卖铺的蛋糕好吃
+            </div>
+
+            <!-- 第三行 -->
+            <div class="note" style="top: 400px; left: 100px; transform: rotate(-4deg);"
+                 onclick="openNote('好累好想哭', '2021年4月18日', false)">
+                好累好想哭
+            </div>
+
+            <div class="note" style="top: 390px; left: 330px; transform: rotate(3deg);"
+                 onclick="openNote('数学好难谁来救救我', '2021年5月2日', false)">
+                数学好难谁来救救我
+            </div>
+
+            <div class="note" style="top: 420px; left: 560px; transform: rotate(-2deg);"
+                 onclick="openNote('新年快乐！', '2021年2月12日', false)">
+                新年快乐！
+            </div>
+
+            <div class="note" style="top: 380px; left: 790px; transform: rotate(2deg);"
+                 onclick="openNote('有没有毕业旅行想去玩漂流的', '2021年6月5日', false)">
+                有没有毕业旅行<br>想去玩漂流的
+            </div>
+        </div>
+    </div>
+
+    <!-- 放大层 -->
+    <div class="overlay" id="overlay">
+        <div class="note-large" id="note-large">
+            <span class="close-btn" onclick="closeNote()">×</span>
+            <div id="note-text"></div>
+            <div class="date" id="note-date"></div>
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <div class="page-indicator">10 / 31</div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        @南湾一中 本界面非真实官方网站，仅作解谜使用
+    </footer>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            document.getElementById('current-time').innerText =
+                `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function openNote(text, date, isShenfu) {
+            document.getElementById('note-text').innerHTML = text;
+            document.getElementById('note-date').innerText = date;
+
+            const largeNote = document.getElementById('note-large');
+            if (isShenfu) {
+                largeNote.classList.add('shenfu-large');
+            } else {
+                largeNote.classList.remove('shenfu-large');
+            }
+
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        function closeNote() {
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeNote();
+        });
+    </script>
+
+</body>
+</html>

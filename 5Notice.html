@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南湾一中官方网站</title>
+
+    <style>
+        /* --- 全局样式（复用 8.html 的风格）--- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* --- 顶部条（复用）--- */
+        .top-bar {
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 头部（深蓝大条，和 8.html 统一）--- */
+        .header {
+            background-color: #26376a;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header img {
+            height: 70px;
+            width: auto;
+        }
+
+        .header-text h1 {
+            font-family: "SimSun", serif;
+            font-size: 28px;
+            margin: 0;
+            color: white;
+        }
+
+        .header-text p {
+            margin: 0;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-family: "SimSun", serif;
+            font-weight: normal;
+        }
+
+        /* --- 导航栏（复用）--- */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 40px;
+        }
+
+        .navbar li a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .nav-search input {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 180px;
+        }
+
+        /* --- 主内容区（统一 1200px）--- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* --- 内容卡片样式 --- */
+        .content-card {
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .main-image-placeholder {
+            background-color: #e9e9e9;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            overflow: hidden;
+            margin-bottom: 20px;
+            width: 100%;
+            aspect-ratio: 16 / 9; 
+            position: relative;
+        }
+
+        .main-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-title {
+            font-family: "SimSun", serif;
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 6px 10px;
+            background: transparent;
+            color: #26376a;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            float: right;
+            margin-top: -8px;
+        }
+
+        .notice-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notice-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .notice-list li:last-child {
+            border-bottom: none;
+        }
+
+        .notice-list li a {
+            color: #333;
+            font-size: 16px;
+            text-decoration: underline;
+        }
+
+        .notice-list li a:hover {
+            color: #26376a;
+        }
+
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .footer {
+            background-color: #26376a;
+            color: #ccc;
+            padding: 20px 40px;
+            margin-top: 40px;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部条 -->
+    <div class="top-bar">
+        <span id="current-time"></span>
+        <span>技术支持：润泽集团</span>
+    </div>
+
+    <!-- 头部（已统一） -->
+    <div class="header">
+        <img src="/Users/jiajia/Downloads/nanwan/nanwanlogo.png" alt="南湾一中 Logo">
+        <div class="header-text">
+            <h1>南湾一中</h1>
+            <p>育人&nbsp;&nbsp;育才&nbsp;&nbsp;育德&nbsp;&nbsp;育美</p>
+        </div>
+    </div>
+
+     <!-- 3. 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="index.html">学校概况</a></li>
+            <li><a href="5Notice.html">通知公告</a></li>
+            <li><a href="8Teacher.html">教工动态</a></li>
+            <li><a href="9Note.html">学生天地</a></li>
+            <li><a href="index.html">联系我们</a></li>
+        </ul>
+        <div class="nav-search">
+        </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <div class="container">
+        <div class="content-card">
+            <a href="index.html" class="back-link">返回</a>
+            <p class="detail-title">通知公告</p>
+            
+            <div class="main-image-placeholder">
+                <img src="campus.jpg" alt="校园风景">
+            </div>
+
+            <ul class="notice-list">
+                <li><a href="6YiKaTong.html">南湾一中全面推广“校园一卡通”</a></li>
+                <li><a href="1ex.html">“润泽惠生”工程</a></li>
+                <li><a href="7Psychology.html">“南湾心理”系统启用</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <div class="page-indicator">5 / 31</div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <p>@南湾一中 本界面非真实官方网站，仅作解谜使用</p>
+    </footer>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            document.getElementById('current-time').textContent = `${year}年${month}月${day}日 ${weekdays[now.getDay()]}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
