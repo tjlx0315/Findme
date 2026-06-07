@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菠萝油</title>
+    
+    <!-- 引入 Canvas Confetti 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: "Noto Serif SC", "Microsoft YaHei", serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .egg-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .egg-text {
+            font-size: 64px;
+            color: #333333;
+            font-weight: bold;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        .egg-subtext {
+            font-size: 18px;
+            color: #999999;
+            margin-bottom: 50px;
+        }
+
+        .egg-container img {
+            max-width: 60vw;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* 页码样式：保持原样（宋体） */
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 9999;
+            font-family: "SimSun", "STSong", serif; /* 这里是宋体，和原版一致 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="egg-container">
+        <div class="egg-text">我想吃菠萝油…</div>
+        <!-- 图片已更换为 zz.png -->
+        <img src="zz.jpg" alt="围巾猫的配图">
+    </div>
+
+    <!-- 页码元素：已更新为 6/EX -->
+    <div class="page-indicator">6 / EX</div>
+
+    <script>
+        // 页面加载完成后触发彩带礼花
+        window.addEventListener('load', function() {
+            var end = Date.now() + (3 * 1000);
+            var colors = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#ff00ff', '#ffffff'];
+
+            (function frame() {
+                confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+        });
+    </script>
+
+</body>
+</html>
